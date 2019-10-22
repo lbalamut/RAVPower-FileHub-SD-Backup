@@ -135,7 +135,7 @@ You can fix that problem easily with a tool called "[Exiftool](https://sno.phy.q
 It's a command line tool with many options - but I will give you a shortcut here :)
 
 * Open the terminal / command prompt in the folder sdcopies/fotos
-* Enter `exiftool "-FileModifyDate<DateTimeOriginal” ./* -rv`
+* Enter `exiftool "-FileModifyDate<DateTimeOriginal” ./* -r`
 
 Exiftool will read the original capture time from the files and modify the timestamp for you in all folders.
 
