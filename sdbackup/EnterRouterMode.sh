@@ -63,7 +63,7 @@ echo $$ > /tmp/backup.pid
 SD_MOUNTPOINT=/data/UsbDisk1/Volume1
 STORE_DIR=/sdcopies
 BACKUP_DIR=/fotobackup
-PHOTO_DIR="$STORE_DIR"/fotos
+PHOTO_DIR="$STORE_DIR"/backups
 CONFIG_DIR="$STORE_DIR"/config
 #MEDIA_REGEX=".*\.\(jpg\|gif\|png\|jpeg\|mov\|avi\|wav\|mp3\|aif\|wma\|wmv\|asx\|asf\|m4v\|mp4\|mpg\|3gp\|3g2\|crw\|cr2\|nef\|dng\|mdc\|orf\|sr2\|srf\|mts\|rw2\)"
 

@@ -5,7 +5,7 @@
 sed -i '/#START_MOD/,/#END_MOD/d' /etc/udev/script/remove_usb_storage.sh
 
 # Add call to usb backup script after drive mounts
-cat <<'EOF' >> /etc/udev/script/remove_usb_storage.sh 
+cat <<'EOF' >> /etc/udev/script/remove_usb_storage.sh
 #START_MOD
 # Kill the rsync process if the USB drive or SD card is removed
 if [ -e /tmp/backup.pid ]; then
