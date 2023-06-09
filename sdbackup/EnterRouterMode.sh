@@ -51,7 +51,7 @@ cat <<'EOF' > /etc/udev/script/usb_backup.sh
 
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin
 
-# Kill an existing backup process if running 
+# Kill an existing backup process if running
 # (this can happen if you insert two disks one after the other)
 if [ -e /tmp/backup.pid ]; then
         kill $(cat /tmp/backup.pid)
@@ -135,11 +135,11 @@ if [ $sdcard -eq 1 -a $storedrive -eq 1 ];then
         target_dir="$store_mountpoint$PHOTO_DIR"/"$sd_uuid"
 	log_dir="$store_mountpoint$STORE_DIR"/log
         mkdir -p $target_dir
-        mkdir -p $log_dir 
-        # Copy the files from the sd card to the target dir, 
+        mkdir -p $log_dir
+        # Copy the files from the sd card to the target dir,
         # Uses filename and size to check for duplicates
         echo "$(date): Copying SD card $SD_MOUNTPOINT to $target_dir" >> "$log_dir"/usb_add_info
-        rsync -vrm --size-only --log-file $log_dir/rsync_log --exclude ".?*" \
+        rsync --verbose --prune-empty-dirs --recursive --times --size-only --log-file $log_dir/rsync_log --exclude ".?*" \
                 $SD_MOUNTPOINT/DCIM \
                 $SD_MOUNTPOINT/PRIVATE \
                 $SD_MOUNTPOINT/MISC \
@@ -156,7 +156,7 @@ if [ $storedrive -eq 1 -a $backupdrive -eq 1 -a "$backup_id" == "$store_id" ]; t
         partial_dir="$store_mountpoint$PHOTO_DIR"/incoming/.partial
 		log_dir="$store_mountpoint"/log
         echo "Backing up data store to $target_dir" >> "$log_dir"/usb_add_info
-        rsync -vrm --size-only --delete-during --exclude ".?*" --partial-dir "$partial_dir" --exclude "swapfile" --log-file "$log_dir"/rsync_log "$source_dir"/ "$target_dir"
+        rsync --verbose --prune-empty-dirs --recursive --times --size-only --delete-during --exclude ".?*" --partial-dir "$partial_dir" --exclude "swapfile" --log-file "$log_dir"/rsync_log "$source_dir"/ "$target_dir"
         if  [ $? -eq 0 ]; then
                 echo "$(date): Backup complete" >> "$log_dir"/usb_add_info
         else
@@ -180,7 +180,7 @@ chmod +x /etc/udev/script/usb_backup.sh
 sed -i '/#START_MOD/,/#END_MOD/d' /etc/udev/script/remove_usb_storage.sh
 
 # Add call to usb backup script after drive mounts
-cat <<'EOF' >> /etc/udev/script/remove_usb_storage.sh 
+cat <<'EOF' >> /etc/udev/script/remove_usb_storage.sh
 #START_MOD
 # Kill the rsync process if the USB drive or SD card is removed
 if [ -e /tmp/backup.pid ]; then
@@ -211,7 +211,7 @@ fi
 
 #END_MOD
 EOF
-# Add a swapfile on the data store drive 
+# Add a swapfile on the data store drive
 # (rsync needs this for large file copies)
 
 sed -i 's/SWAP=noswap/SWAP=swap/' /etc/firmware
